@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no" />
+  <title>புதிய ஆத்திசூடி</title>
+  <!-- Building blocks -->
+  <link rel="stylesheet" href="css/headers.css">
+  <link rel="stylesheet" href="css/lists.css">
+  <link rel="stylesheet" href="css/scrolling.css">
+  <!-- Transitions -->
+  <link rel="stylesheet" href="css/transitions.css">
+  <!-- Util CSS: some extra tricks -->
+  <link rel="stylesheet" href="css/util.css">
+  <!-- Icons -->
+
+  <style>
+    #index {
+      height: 100%;
+    }
+    [data-position="right"] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      transform: translateX(100%);
+      -webkit-transform: translateX(100%);
+      z-index: 15;
+      z-index: 100; /* -> drawer */
+    }
+    section[role="region"][data-position="right"] {
+      position: absolute;
+    }
+    [data-position="right"].current {
+      animation: rightToCurrent 0.4s forwards;
+      -webkit-animation: rightToCurrent 0.4s forwards;
+    }
+    [data-position="right"].right {
+      animation: currentToRight 0.4s forwards;
+      -webkit-animation: currentToRight 0.4s forwards;
+    }
+    [data-position="current"].left {
+      animation: currentToLeft 0.4s forwards;
+      -webkit-animation: currentToLeft 0.4s forwards;
+    }
+    [data-position="current"].current {
+      animation: leftToCurrent 0.4s forwards;
+      -webkit-animation: leftToCurrent 0.4s forwards;
+    }
+    [data-position="back"] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+      opacity: 0;
+      /* z-index: 100; -> drawer */
+    }
+    [data-position="back"].fade-in {
+      z-index: 120;
+      animation: fadeIn 0.2s forwards;
+      -webkit-animation: fadeIn 0.2s forwards;
+    }
+    [data-position="back"].fade-out {
+      animation: fadeOut 0.2s forwards;
+      -webkit-animation: fadeOut 0.2s forwards;
+    }
+
+    [data-position="edit-mode"] {
+      position: absolute;
+      top: -5rem;
+      left: 0;
+      right: 0;
+      bottom: -7rem;
+      z-index: -1;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    [data-position="edit-mode"].edit {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 120;
+      opacity: 1;
+    }
+
+    /* Active state */
+    .active {
+      background-color: #b2f2ff;
+      color: #fff;
+    }
+
+    /* Headers */
+    #headers .content {
+      margin-top: -1.5rem;
+    }
+    #headers section[role="region"] {
+      margin-bottom: 1.5rem;
+    }
+    #headers section[role="region"]:not(#drawer) {
+      display: inline;
+    }
+    #headers article header:first-child {
+      margin-top: 1.5rem;
+    }
+    #headers section[role="region"] header h2 {
+      margin: 0 0 1.5rem 0;
+    }
+
+    /* Lists */
+    /* to avoid double background effect on press */
+    [data-type=list] li>a:active {
+      background-color: transparent;
+    }
+
+    section[data-type="sidebar"] + section[role="region"] > header:first-child > button,
+    section[data-type="sidebar"] + section[role="region"] > header:first-child > a {
+      background-position: 3.5rem center;
+    }
+
+    /* Scrolling */
+    nav[data-type="scrollbar"] {
+      padding-top: 1rem;
+    }
+    nav[data-type="scrollbar"] p {
+      opacity: 1;
+    }
+
+    /* Filters */
+    [role="tablist"][data-type="filter"] {
+      margin-bottom: 2rem;
+    }
+
+    /* Device rotation */
+    .landscape section[role="region"]#drawer > header:first-child {
+      /* Whatever needs to be changed on landscape */
+    }
+  </style>
+</head>
+<body>
+  <section id="index" data-position="current">
+    <section id="drawer" role="region">
+      <header class="fixed">
+        <h1>புதிய ஆத்திசூடி</h1>
+      </header>
+      <article class="scrollable header">
+        <div data-type="list">
+          <ul>
+            <li>
+              <a id="btn-lists1" href="#">
+                <p>கடவுள் வாழ்த்து</p>
+              </a>
+            </li>
+            <li>
+              <a id="btn-lists2" href="#">
+                <p>உயிர் வருக்கம்</p>
+              </a>
+            </li>
+            <li>
+              <a id="btn-lists3" href="#">
+                <p>ககர வருக்கம்</p>
+              </a>
+            </li>
+            <li>
+              <a id="btn-lists4" href="#">
+                <p>சகர வருக்கம்</p>
+              </a>
+            </li>
+            <li>
+              <a id="btn-lists5" href="#">
+                <p>தகர வருக்கம்</p>
+              </a>
+            </li>
+            <li>
+              <a id="btn-lists6" href="#">
+                <p>நகர வருக்கம்</p>
+              </a>
+            </li>
+            <li>
+              <a id="btn-lists7" href="#">
+                <p>பகர வருக்கம்</p>
+              </a>
+            </li>
+            <li>
+              <a id="btn-lists8" href="#">
+                <p>மகர வருக்கம்</p>
+              </a>
+            </li>
+            <li>
+              <a id="btn-lists9" href="#">
+                <p>வகர வருக்கம்</p>
+              </a>
+            </li>
+            <li>
+              <a id="btn-lists10" href="#">
+                <p>மற்றவை...</p>
+              </a>
+            </li>
+            <li>
+              <a href="http://ta.wikipedia.org/wiki/சுப்பிரமணிய_பாரதி" target="_blank" >
+                <p>நூலாசிரியர் பற்றி...</p>
+              </a>
+            </li>
+            <li>
+              <a href="https://ta.wikisource.org/wiki/புதிய_ஆத்திசூடி" target="_blank" >
+                <p>விக்கிமூலம்</p>
+              </a>
+            </li>
+            <li>
+          </ul>
+        </div>
+      </article>
+    </section> <!-- end drawer -->
+  </section> <!-- end index -->
+
+  <!--·························· கடவுள் வாழ்த்து ··························-->
+  <section class="current1" role="region" id="lists1" data-position="right">
+    <header class="fixed">
+      <a id="btn-lists-back1" href="#"><span class="icon icon-back">back</span></a>
+      <h1>கடவுள் வாழ்த்து</h1>
+    </header>
+    <article class="content scrollable header">
+      <section data-type="list">
+        <ul>
+         <li>
+           <p>ஆத்திசூடி, இளம்பிறை அணிந்து
+		   மோனத் திருக்கும் முழுவெண் மேனியான்;
+		   கருநிறங் கொண்டுபொற் கடல்மிசைக் கிடப்போன்;
+		   மகமது நபிக்கு மறையருள் புரிந்தோன்;
+		   ஏசுவின் தந்தை எனப்பல மதத்தினர்
+		   உருவகத் தாலே உணர்ந்துணராது
+		   பலவகை யாகப் பரவிடும் பரம்பொருள்
+		   ஒன்றே அதனியல் ஒளியுறும் அறிவாம்;
+		   அதனிலை கண்டார் அல்லலை அகற்றினார்;
+		   அதனருள் வாழ்த்தி அமரவாழ்வு எய்துவோம்.</p>
+          </li>
+        </ul>
+      </section>
+    </article>
+  </section>
+  
+  <!--·························· உயிர் வருக்கம் ··························-->
+  <section class="current2" role="region" id="lists2" data-position="right">
+    <header class="fixed">
+      <a id="btn-lists-back2" href="#"><span class="icon icon-back">back</span></a>
+      <h1>உயிர் வருக்கம்</h1>
+    </header>
+    <article class="content scrollable header">
+      <section data-type="list">
+        <ul class="meaning_wrap">
+          <li><p>1. அச்சம் தவிர்</p></li>
+          <li><p>2. ஆண்மை தவறேல்</p></li>
+          <li><p>3. இளைத்தல் இகழ்ச்சி</p></li>
+          <li><p>4. ஈகை திறன்</p></li>
+          <li><p>5. உடலினை உறுதிசெய்</p></li>
+          <li><p>6. ஊண்மிக விரும்பு</p></li>
+          <li><p>7. எண்ணுவ துயர்வு</p></li>
+          <li><p>8. ஏறுபோல் நட</p></li>
+          <li><p>9. ஐம்பொறி ஆட்சிகொள்</p></li>
+          <li><p>10. ஒற்றுமை வலிமையாம்</p></li>
+          <li><p>11. ஓய்த லொழி</p></li>
+          <li><p>12. ஒளடதங் குறை</p></li>
+        </ul>
+      </section>
+    </article>
+  </section>
+  
+  <!--·························· ககர வருக்கம் ··························-->
+  <section class="current3" role="region" id="lists3" data-position="right">
+    <header class="fixed">
+      <a id="btn-lists-back3" href="#"><span class="icon icon-back">back</span></a>
+      <h1>ககர வருக்கம்</h1>
+    </header>
+    <article class="content scrollable header">
+      <section data-type="list">
+		<ul>
+			<li><p>13. கற்றது ஒழுகு</p></li>
+			<li><p>14. காலம் அழியேல்</p></li>
+			<li><p>15. கிளைபல தாங்கேல்</p></li>
+			<li><p>16. கீழோர்க்கு அஞ்சேல்</p></li>
+			<li><p>17. குன்றென நிமிர்ந்து நில்</p></li>
+			<li><p>18. கூடித் தொழில் செய்</p></li>
+			<li><p>19. கெடுப்பது சோர்வு</p></li>
+			<li><p>20. கேட்டிலும் துணிந்து நில்</p></li>
+			<li><p>21. கைத்தொழில் போற்று</p></li>
+			<li><p>22. கொடுமையை எதிர்த்து நில்</p></li>
+			<li><p>23. கோள்கைக் கொண்டு வாழ்</p></li>
+			<li><p>24. கவ்வியதை விடேல்</p></li>
+        </ul>
+      </section>
+    </article>
+  </section>
+  
+  <!--·························· சகர வருக்கம் ··························-->
+  <section class="current4" role="region" id="lists4" data-position="right">
+    <header class="fixed">
+      <a id="btn-lists-back4" href="#"><span class="icon icon-back">back</span></a>
+      <h1>சகர வருக்கம்</h1>
+    </header>
+    <article class="content scrollable header">
+      <section data-type="list">
+		<ul>
+			<li><p>25. சரித்திரத் தேர்ச்சிகொள்</p></li>
+			<li><p>26. சாவதற்கு அஞ்சேல்</p></li>
+			<li><p>27. சிதையா நெஞ்சு கொள்</p></li>
+			<li><p>28. சீறுவோர்ச் சீறு</p></li>
+			<li><p>29. சுமையினுக்கு இளைத்திடேல்</p></li>
+			<li><p>30. சூரரைப் போற்று</p></li>
+			<li><p>31. செய்வது துணிந்து செய்</p></li>
+			<li><p>32. சேர்க்கை அழியேல்</p></li>
+			<li><p>33. சைகையில் பொருளுணர்</p></li>
+			<li><p>34. சொல்வது தெளிந்து சொல்</p></li>
+			<li><p>35. சோதிடந்தனை இகழ்</p></li>
+			<li><p>36. சௌரியம் தவறேல்</p></li>
+			<li><p>37. ஞமலிபோல் வாழேல்</p></li>
+			<li><p>38. ஞாயிறு போற்று</p></li>
+			<li><p>39. ஞிமிரென இன்புறு</p></li>
+			<li><p>40. ஞெகிழ்வது அருளின்</p></li>
+			<li><p>41. ஞேயம் காத்தல் செய்</p></li>
+        </ul>
+      </section>
+    </article>
+  </section>
+  
+  <!--·························· தகர வருக்கம் ··························-->
+  <section class="current5" role="region" id="lists5" data-position="right">
+    <header class="fixed">
+      <a id="btn-lists-back5" href="#"><span class="icon icon-back">back</span></a>
+      <h1>தகர வருக்கம்</h1>
+    </header>
+    <article class="content scrollable header">
+      <section data-type="list">
+		<ul>
+			<li><p>42. தன்மை இழவேல்</p></li>
+			<li><p>43. தாழ்ந்து நடவேல்</p></li>
+			<li><p>44. திருவினை வென்று வாழ்</p></li>
+			<li><p>45. தீயோர்க்கு அஞ்சேல்</p></li>
+			<li><p>46. துன்பம் மறந்திடு</p></li>
+			<li><p>47. தூற்றுதல் ஒழி</p></li>
+			<li><p>48. தெய்வம் நீ என்று உணர்</p></li>
+			<li><p>49. தேசத்தைக் காத்தல் செய்</p></li>
+			<li><p>50. தையலை உயர்வு செய்</p></li>
+			<li><p>51. தொன்மைக்கு அஞ்சேல்</p></li>
+			<li><p>52. தோல்வியில் கலங்கேல்</p></li>
+			<li><p>53. தவத்தினை நிதம்புரி</p></li>
+        </ul>
+      </section>
+    </article>
+  </section>
+  
+  <!--·························· நகர வருக்கம் ··························-->
+  <section class="current6" role="region" id="lists6" data-position="right">
+    <header class="fixed">
+      <a id="btn-lists-back6" href="#"><span class="icon icon-back">back</span></a>
+      <h1>நகர வருக்கம்</h1>
+    </header>
+    <article class="content scrollable header">
+      <section data-type="list">
+		<ul>
+			<li><p>54. நன்று கருது</p></li>
+			<li><p>55. நாளெல்லாம் வினை செய்</p></li>
+			<li><p>56. நினைப்பது முடியும்</p></li>
+			<li><p>57. நீதிநூல் பயில்</p></li>
+			<li><p>58. நுனியளவு செல்</p></li>
+			<li><p>59. நூலினைப் பகுந்துணர்</p></li>
+			<li><p>60. நெற்றி சுருக்கிடேல்</p></li>
+			<li><p>61. நேர்ப்படப் பேசு</p></li>
+			<li><p>62. நையப் புடை</p></li>
+			<li><p>63. நொந்தது சாகும்</p></li>
+			<li><p>64. நோற்பது கைவிடேல்</p></li>
+        </ul>
+      </section>
+    </article>
+  </section>
+  
+  <!--·························· பகர வருக்கம் ··························-->
+  <section class="current7" role="region" id="lists7" data-position="right">
+    <header class="fixed">
+      <a id="btn-lists-back7" href="#"><span class="icon icon-back">back</span></a>
+      <h1>பகர வருக்கம்</h1>
+    </header>
+    <article class="content scrollable header">
+      <section data-type="list">
+	  <ul>
+		<li><p>65. பணத்தினைப் பெருக்கு</p></li>
+		<li><p>66. பாட்டினில் அன்பு செய்</p></li>
+		<li><p>67. பிணத்தினைப் போற்றேல்</p></li>
+		<li><p>68. பீழைக்கு இடம் கொடேல்</p></li>
+		<li><p>69. புதியன விரும்பு</p></li>
+		<li><p>70. பூமி இழந்திடேல்</p></li>
+		<li><p>71. பெரிதினும் பெரிது கொள்</p></li>
+		<li><p>72. பேய்களுக்கு அஞ்சேல்</p></li>
+		<li><p>73. பொய்மை இகழ்</p></li>
+		<li><p>74. போர்த்தொழில் பழகு</p></li>
+		</ul>
+      </section>
+    </article>
+  </section>
+  
+  <!--·························· மகர வருக்கம் ··························-->
+  <section class="current8" role="region" id="lists8" data-position="right">
+    <header class="fixed">
+      <a id="btn-lists-back8" href="#"><span class="icon icon-back">back</span></a>
+      <h1>மகர வருக்கம்</h1>
+    </header>
+    <article class="content scrollable header">
+      <section data-type="list">
+		<ul>
+			<li><p>75. மந்திரம் வலிமை</p></li>
+			<li><p>76. மானம் போற்று</p></li>
+			<li><p>77. மிடிமையில் அழிந்திடேல்</p></li>
+			<li><p>78. மீளுமாறு உணர்ந்து கொள்</p></li>
+			<li><p>79. முனையிலே முகத்து நில்</p></li>
+			<li><p>80. மூப்பினுக்கு இடங்கொடேல்</p></li>
+			<li><p>81. மெல்லத் தெரிந்து சொல்</p></li>
+			<li><p>82. மேழி போற்று</p></li>
+			<li><p>83. மொய்ம்புறத் தவம் செய்</p></li>
+			<li><p>84. மோனம் போற்று</p></li>
+			<li><p>85. மௌட்டியந்தனைக் கொல்</p></li>
+        </ul>
+      </section>
+    </article>
+  </section>
+  
+  <!--·························· வகர வருக்கம்··························-->
+  <section class="current9" role="region" id="lists9" data-position="right">
+    <header class="fixed">
+      <a id="btn-lists-back9" href="#"><span class="icon icon-back">back</span></a>
+      <h1>வகர வருக்கம்</h1>
+    </header>
+    <article class="content scrollable header">
+      <section data-type="list">
+		<ul>
+			<li><p>86. வருவதை மகிழ்ந்துண்</p></li>
+			<li><p>87. வானநூல் பயிற்சிகொள்ள</p></li>
+			<li><p>88. விதையினைத் தெரிந்திடு</p></li>
+			<li><p>89. வீரியம் பெருக்கு</p></li>
+			<li><p>90. வெடிப்புறப் பேசு</p></li>
+			<li><p>91. வேதம் புதுமை செய்</p></li>
+			<li><p>92. வையத் தலைமைகொள்</p></li>
+			<li><p>93. வௌவுதல் நீக்கு</p></li>
+        </ul>
+      </section>
+    </article>
+  </section>
+  
+    <!--·························· மற்ற வருக்கம் ··························-->
+  <section class="current10" role="region" id="lists10" data-position="right">
+    <header class="fixed">
+      <a id="btn-lists-back10" href="#"><span class="icon icon-back">back</span></a>
+      <h1>மற்றவை</h1>
+    </header>
+    <article class="content scrollable header">
+      <section data-type="list">
+		<ul>
+		<li><p>94. யவனர்போல் முயற்சிகொள்</p></li>
+		<li><p>95. யாவரையும் மதித்து வாழ்</p></li>
+		<li><p>96. யௌவனம் காத்தல் செய்</p></li>
+		<li><p>97. ரஸத்திலே தேர்ச்சி கொள்</p></li>
+		<li><p>98. ராஜஸம் பயில்</p></li>
+		<li><p>99. ரீதி தவறேல்</p></li>
+		<li><p>100. ருசிபல வென்றுணர்</p></li>
+		<li><p>101. ரூபம் செம்மை செய்</p></li>
+		<li><p>102. ரேகையில் கனிகொள்</p></li>
+		<li><p>103. ரோதனம் தவிர்</p></li>			
+		<li><p>104. ரௌத்திரம் பழகு</p></li>
+		<li><p>105. லவம்பல வெள்ளமாம்</p></li>
+		<li><p>106. லாகவம் பயிற்சி செய்</p></li>
+		<li><p>107. லீலை இவ்வுலகு</p></li>
+		<li><p>108. உறுத்தரை இகழ்</p></li>
+		<li><p>109. உலோக நூல் கற்றுணர்</p></li>
+		<li><p>110. லௌகிகம் ஆற்று</p></li>
+        </ul>
+      </section>
+    </article>
+  </section>
+  <script type="text/javascript" defer src="js/status.js"></script>
+  <script type="text/javascript" defer src="js/app.js"></script>
+</body>
+</html>

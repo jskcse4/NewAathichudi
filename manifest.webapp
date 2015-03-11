@@ -1,0 +1,22 @@
+{
+  "name": "புதிய ஆத்திசூடி",
+  "description": "Firefox OS சாதனத்திற்க்கான அனைத்து வருக்கங்களையும் கொண்ட பாரதியின் புதிய ஆத்திசூடி",
+  "launch_path": "/index.html",
+  "icons": {
+        "48"  : "/img/app_icon_60.png",
+        "60"  : "/img/app_icon_60.png",
+        "64"  : "/img/app_icon_60.png",
+        "90"  : "/img/app_icon_60.png",
+        "120" : "/img/app_icon_60.png",
+        "128" : "/img/app_icon_128.png"
+  },
+  "version": "1.0",
+  "developer": {
+    "name": "Khaleel Jageer",
+    "url": "https://mozillians.org/en-US/u/jskcse4"
+  },
+  "default_locale": "ta",
+  "installs_allowed_from": ["*"],
+	"fullscreen": "true",
+    "orientation": ["portrait"]
+}
